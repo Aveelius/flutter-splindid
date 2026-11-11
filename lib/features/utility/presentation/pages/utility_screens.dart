@@ -1,0 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:pasar_splindid_app/core/widgets/shared_widgets.dart';
+import 'package:pasar_splindid_app/features/market/presentation/pages/market_screen.dart';
+
+class SearchPage extends StatefulWidget { const SearchPage({super.key}); @override State<SearchPage> createState() => _SearchPageState(); }
+
+class _SearchPageState extends State<SearchPage> { final controller = TextEditingController(); @override void dispose() { controller.dispose(); super.dispose(); }
+  @override Widget build(BuildContext context) => SubPage(title: 'Cari Pasar Splendid', child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [TextField(controller: controller, autofocus: true, decoration: InputDecoration(prefixIcon: const Icon(Icons.search), hintText: 'Cari stan, produk, atau sektor', filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none)), onChanged: (_) => setState(() {})), const SizedBox(height: 18), Text(controller.text.isEmpty ? 'Sektor populer' : 'Hasil pencarian', style: const TextStyle(fontWeight: FontWeight.w700)), const SizedBox(height: 10), ...['Burung', 'Ikan Hias', 'Bunga', 'Hewan'].where((s) => controller.text.isEmpty || s.toLowerCase().contains(controller.text.toLowerCase())).map((s) => ListTile(leading: const Icon(Icons.storefront, color: forest), title: Text('Pasar $s'), subtitle: const Text('Jelajahi sektor dan stan'), onTap: () => openPage(context, SectorPage(category: s))))]))); }
+
+class NotificationsPage extends StatelessWidget { const NotificationsPage({super.key}); @override Widget build(BuildContext context) => const SubPage(title: 'Notifikasi', child: Column(children: [NoticeRow(icon: Icons.local_offer_outlined, title: 'Promo akhir pekan', detail: 'Diskon pilihan dari pedagang Pasar Splendid.'), NoticeRow(icon: Icons.chat_bubble_outline, title: 'Balasan komunitas', detail: 'Ada balasan baru pada diskusimu.'), NoticeRow(icon: Icons.storefront_outlined, title: 'Pasar buka hari ini', detail: 'Kunjungi kami pukul 07.00–17.00.') ])); }
